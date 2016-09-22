@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <title>To Do List</title>
+      <link rel='stylesheet' href='css/style.css'/>
+      <script src="https://code.jquery.com/jquery-3.1.0.js" integrity="sha256-slogkvB1K3VOkzAI8QITxV3VzpOnkeNVsKvtkYLMjfk=" crossorigin="anonymous"></script>
+      <script src='js/index.js'></script>
+  </head>
+
+  <body>
+    <div class='container'>
+      <div class='to-do-list'>
+        <div>
+          <h1>To Do List</h1>
+        </div>
+        <div>
+          <form id='entry'>
+            <input id='newEntry' autofocus placeholder="Add new task">
+          </form>
+        </div>
+        <div class='list'>
+          <ul id='addToList'>
+            <li>buy cookies</li>
+            <li>eat cookies</li>
+          </ul>
+        </div>
+        <div class='count'>
+          <h3>Tasks completed: <span id="total-remaining">0</span></h3>
+        </div>
+      </div>
+      <div class='completed-list'>
+      <div>
+        <h1>Completed List</h1>
+      </div>
+      <div class='list'>
+        <li>buy cookies</li>
+        <li>eat cookies</li>
+      </div>
+      <div class='count'>
+        <h3>Tasks completed: <span id="total-completed">0</span></h3>
+      </div>
+
+    </div>
+  </body>
+</html>
