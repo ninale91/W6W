@@ -1,25 +1,42 @@
 $(document).ready(start);
 
+var toDoArray= ['Buy thing'];
+var completedArray= [];
+
 function start() {
   $('#entry').submit(writeToDo);
-  $('body').on('click', 'li', removeToDo)
+  $('body').on('click', '.todo-item', removeToDo)
+  $('body').on('click', '.completed-item', addBackToToDo);
+  refreshToDoList();
 }
-var toDoArray= [];
-var completedArray= [];
 
 function writeToDo(e) {
   e.preventDefault();
   var itemEntry = $('#newEntry').val();
-  writeNewEntry(itemEntry);
+  toDoArray.push(itemEntry)
   clearEntryInput();
+  refreshToDoList();
   console.log(toDoArray);
 }
 
-function writeNewEntry(lineItemEntry) {
-  var row = "<li>" + lineItemEntry + "</li>";
+function refreshToDoList(){
+  $('#addToList').html('');
+  $(toDoArray).each(writeNewEntry);
+}
+
+function refreshCompletedList() {
+  $('#completed-list').html('');
+  $(completedArray).each(writeNewCompletedEntry);
+}
+
+function writeNewEntry(index, lineItemEntry) {
+  var row = "<li class='todo-item' id='TODO-"+index+"'>" + lineItemEntry + "</li>";
   $("#addToList").append(row);
-  toDoArray.push(lineItemEntry);
-  toDoArray.length;
+}
+
+function writeNewCompletedEntry(index, lineItemEntry) {
+  var row = "<li class='completed-item' id='COMPLETED-"+index+"'>" + lineItemEntry + "</li>";
+  $("#completed-list").append(row);
 }
 
 function clearEntryInput() {
@@ -27,5 +44,19 @@ function clearEntryInput() {
 }
 
 function removeToDo() {
-  $(this).css("text-decoration" , "line-through");
+  var id = $(this).attr('id')
+  var positionToRemove = parseInt(id.split('-')[1])
+  var completedItem = toDoArray.splice(positionToRemove, 1);
+  completedArray.push(completedItem)
+  refreshToDoList();
+  refreshCompletedList();
+}
+
+function addBackToToDo() {
+  var id = $(this).attr('id')
+  var positionToRemove = parseInt(id.split('-')[1])
+  var addedBackItem = completedArray.splice(positionToRemove, 1);
+  toDoArray.push(addedBackItem)
+  refreshToDoList();
+  refreshCompletedList();
 }
