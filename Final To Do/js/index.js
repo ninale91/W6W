@@ -7,6 +7,7 @@ function start() {
  $("#entry").submit(writeToDo);
  $("body").on("click", ".todo-item", removeToDo);
  $("body").on("click", ".completed-item", addBackToToDo);
+ $("#entry").on("reset",clearAllLists);
 }
 
 function writeToDo(event) {
@@ -23,6 +24,7 @@ function refreshToDoList(){
  $("#toDoList").html("");
  $(toDoArray).each(writeNewEntry);
  $("#toDoTotal").text(toDoArray.length);
+ checkToDoCompleted();
 }
 
 function refreshCompletedList() {
@@ -52,7 +54,6 @@ function clearEntryInput() {
 }
 
 function removeToDo() {
- console.log("hello");
  var id = $(this).attr("id");
  var positionToRemove = parseInt(id.split("-")[1]);
  var completedItem = toDoArray.splice(positionToRemove, 1);
@@ -68,4 +69,20 @@ function addBackToToDo() {
  toDoArray.push(addedBackItem);
  $(this).css("text-decoration","line-through").fadeOut("slow",refreshCompletedList);
  refreshToDoList();
+}
+
+function checkToDoCompleted () {
+  if(toDoArray.length == 0 && completedArray.length != 0) {
+    $('#main').fireworks();
+  }
+}
+
+function clearAllLists(event) {
+ event.preventDefault();
+ toDoArray = [];
+ completedArray = [];
+ $('#main').fireworks('destroy');
+ clearEntryInput();
+ refreshToDoList();
+ refreshCompletedList();
 }
